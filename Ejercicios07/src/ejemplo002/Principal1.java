@@ -11,10 +11,13 @@ public class Principal1 {
 
     public static void main(String[] args) {
         
-        String [] nombres = { "Jason", "Jonathan", "Kristen", "Robin", "Michelle", "Emily", "Noah", "Daniel"};
-        String [] apellidos = { "Lynch", "George", "Lang", "Cochran", "Young", "Fletcher", "Adkins", "Harris"};
-        int [][] notas = { {10, 80, 80, 95}, {40, 80, 80, 45}, {80, 10, 20, 55}, {70, 30, 20, 65}, 
-            {60, 50, 70, 75}, {50, 70, 30, 85},{40, 80, 40, 45}, {30, 90, 50, 95}};
+        String [] nombres = { "Jason", "Jonathan", "Kristen", "Robin", 
+            "Michelle", "Emily", "Noah", "Daniel"};
+        String [] apellidos = { "Lynch", "George", "Lang", "Cochran", 
+            "Young", "Fletcher", "Adkins", "Harris"};
+        int [][] notas = { {10, 80, 80, 95}, {40, 80, 80, 45}, {80, 10, 20, 55},
+            {70, 30, 20, 65}, {60, 50, 70, 75}, {50, 70, 30, 85},
+            {40, 80, 40, 45}, {30, 90, 50, 95}};
         
         double promedio_paralelo = obtenerPromedioParalelo(notas);
         String nombre;
@@ -23,7 +26,7 @@ public class Principal1 {
         double promedioEstudiante;
         int numeroNotasArribaPromedio;
         int [] filaNotas;
-        String mensajeFinal = "";
+        String mensajeFinal = "";// se crea una cadena acumuladora
         for (int i = 0; i < nombres.length; i++) {
             nombre = nombres[i];
             apellido = apellidos[i];
@@ -32,9 +35,16 @@ public class Principal1 {
             numeroNotasArribaPromedio = funcion02(filaNotas, 
                     promedio_paralelo);
             tipoNotas = funcion03(filaNotas);
-            mensajeFinal = String.format("%s%s\n", mensajeFinal, 
+            /*
+            Dentro de la cadena acumuladora lo qeu hacemos es llamar a la funcion
+            presentarReporte, donde vamos a presentar todos los valores que
+            obtuvimos con anterioridad
+            */
+            mensajeFinal = String.format("%s%s\n",
+                    mensajeFinal, 
                     presentarReporte(nombre, apellido, tipoNotas, 
                     promedioEstudiante, numeroNotasArribaPromedio));
+            
         }
         CrearArchivoTexto.agregarRegistros(mensajeFinal);
 
