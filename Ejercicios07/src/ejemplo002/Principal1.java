@@ -23,7 +23,10 @@ public class Principal1 {
         String nombre;
         String apellido;
         String tipoNotas;
+        String email;
         double promedioEstudiante;
+        int notaBaja;
+        int notaAlta;
         int numeroNotasArribaPromedio;
         int [] filaNotas;
         String mensajeFinal = "";// se crea una cadena acumuladora
@@ -31,6 +34,9 @@ public class Principal1 {
             nombre = nombres[i];
             apellido = apellidos[i];
             filaNotas = notas[i];
+            email = obtenerEmail(nombre, apellido);
+            notaBaja = obtenerNotaB(filaNotas);
+            notaAlta = obtenerNotaA(filaNotas);
             promedioEstudiante = funcion01(filaNotas);
             numeroNotasArribaPromedio = funcion02(filaNotas, 
                     promedio_paralelo);
@@ -42,23 +48,26 @@ public class Principal1 {
             */
             mensajeFinal = String.format("%s%s\n",
                     mensajeFinal, 
-                    presentarReporte(nombre, apellido, tipoNotas, 
-                    promedioEstudiante, numeroNotasArribaPromedio));
+                    presentarReporte(nombre, apellido, email, tipoNotas, 
+                    promedioEstudiante, numeroNotasArribaPromedio, notaBaja, notaAlta));
             
         }
         CrearArchivoTexto.agregarRegistros(mensajeFinal);
 
     }
     
-    public static String presentarReporte(String nom, String ap, String notas, 
-            double prom, int numeroNotas){
+    public static String presentarReporte(String nom, String ap, String em, String notas, 
+            double prom, int numeroNotas, int notaB, int notaA){
         String reporte = String.format("Nombres: %s\n"
                 + "Apellidos: %s\n"
+                + "Username: %s\n"
                 + "Con notas: \n"
                 + "%s\n"
                 + "Promedio - %2f\n"
-                + "Número de notas arriba del promedio: %d\n\n",
-                nom, ap, notas, prom, numeroNotas);
+                + "Número de notas arriba del promedio: %d\n\n"
+                + "Nota mas baja: %d\n"
+                + "Nota mas Alta: %d\n\n",
+                nom, ap, em, notas, prom, numeroNotas, notaB, notaA);
         
         return reporte;
     }
@@ -127,6 +136,39 @@ public class Principal1 {
         return cadena;
     }
     
+    public static String obtenerEmail(String a, String b){
+        String email = "";
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        String inicial = a.substring(0, 1);
+        
+        email = String.format("%s.%s@utpl.edu.ec",
+                inicial,
+                b);
+        return email;
+        
+        
+    }
+    public static int obtenerNotaB(int [] a){
+        int notaBaja;
+        notaBaja = a[0];
+        for(int i = 0; i < a.length; i++){
+            if(a[i] < notaBaja){
+                notaBaja = a[i];
+            }
+        }
+        return notaBaja;
+    }
+    public static int obtenerNotaA(int [] a){
+        int notaBaja;
+        notaBaja = a[0];
+        for(int i = 0; i < a.length; i++){
+            if(a[i] > notaBaja){
+                notaBaja = a[i];
+            }
+        }
+        return notaBaja;
+    }
     
     
     
